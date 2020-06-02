@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "Index1";
+}
+
+<h2>Index1</h2>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<table id="tab1" width="300px" border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>FatherName</th>
+    </tr>
+
+</table>
+ID:
+<input type="text" name="id" id="id" value="" />
+<br />
+Name :
+<input type="text" name="name" id="name" value="" />
+<br />
+
+Father Name:
+<input type="text" name="fname" id="fname" value="" />
+<br />
+<input type="button" name="btn" id="btn1" value="Add Employee " />
+<input type="button" name="btn2" id="btn2" value="Delete Employee " />
+
+<input type="button" name="btn3" id="btn3" value="Update Employee " />
+
+<script>
+    $(document).ready(function () {
+
+        $("#tab1").css("display", "none");
+        $.getJSON("/api/infoes/", function (data) {
+            $("#tab1").css("display", "block");
+            $.each(data, function (key, val) {
+                $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.fname + "</td></tr>").appendTo($("#tab1"));
+
+
+            })
+        })
+        //POST
+        $("#btn1").click(function () {
+            var name = $("#name").val();
+            var fname = $("#fname").val();
+            $.ajax({
+
+                type: "POST",
+
+                contentType: "application/json;charset=utf-8",
+
+                url: "/api/infoes/",
+
+                data: JSON.stringify({
+
+
+
+                    name: $("#name").val(),
+
+                    fname: $("#fname").val(),
+
+
+
+                }),
+
+                dataType: "JSON",
+
+                success: function (data) {
+                    $("#tab1").find("tr:gt(0)").remove();
+                    $.getJSON("/api/infoes/", function (data) {
+                        $("#tab1").css("display", "block");
+                        $.each(data, function (key, val) {
+                            $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.fname + "</td></tr>").appendTo($("#tab1"));
+
+
+                        })
+
+                    })
+
+
+
+                }
+            });
+
+
+        })
+        //Delete
+        $("#btn2").click(function () {
+            var id = $("#id").val();
+
+            $.ajax({
+
+                type: "DELETE",
+
+                contentType: "application/json;charset=utf-8",
+
+                url: "/api/infoes/" + $("#id").val(),
+
+                data: JSON.stringify({
+
+
+
+                    name: $("#id").val(),
+
+
+
+
+
+                }),
+
+                dataType: "JSON",
+
+                success: function (data) {
+                    $("#tab1").find("tr:gt(0)").remove();
+                    $.getJSON("/api/infoes/", function (data) {
+                        $("#tab1").css("display", "block");
+                        $.each(data, function (key, val) {
+                            $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.fname + "</td></tr>").appendTo($("#tab1"));
+
+
+                        })
+
+                    })
+
+
+
+                }
+            });
+
+
+        })
+
+        //Update
+        $("#btn3").click(function () {
+            var id = $("#id").val();
+            var name = $("#name").val();
+            var fname = $("#fname").val();
+            $.ajax({
+
+                type: "put",
+
+                contentType: "application/json;charset=utf-8",
+
+                url: "/api/infoes/" + $("#id").val(),
+
+                data: JSON.stringify({
+
+
+                    id: $("#id").val(),
+                    name: $("#name").val(),
+
+
+                    fname: $("#fname").val(),
+
+
+
+                }),
+
+                dataType: "JSON",
+
+                success: function (data) {
+                    $("#tab1").find("tr:gt(0)").remove();
+                    $.getJSON("/api/infoes/", function (data) {
+                        $("#tab1").css("display", "block");
+                        $.each(data, function (key, val) {
+                            $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.fname + "</td></tr>").appendTo($("#tab1"));
+
+
+                        })
+
+                    })
+
+
+
+                }
+            });
+
+
+        })
+    });
+
+</script>

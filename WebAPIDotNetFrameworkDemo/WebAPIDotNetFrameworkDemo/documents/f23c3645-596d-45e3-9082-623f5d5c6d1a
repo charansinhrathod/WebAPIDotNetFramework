@@ -1,0 +1,42 @@
+Error_1: Just updated nuget packages
+
+Error_2: Change Port Number from 80 to 6003.
+
+
+
+GridComponentDataService
+
+1. When load GridComponentDataService.sln file then GridComponentDataService project is not loaded.
+	- Have to run GridComponentDataService.csproject that will load all 5 projects
+	
+GridComponentService
+1. Same issue & solution as above	
+2. docker-compose project not build successfully.
+	- Have to take latest file 'EnvironmentVariables.env' from vault path $/TTI/0 Development/TTI/Docker/
+	
+	
+
+Docker Commands:
+Docker images
+Docker rmi   // To delete
+docker system prune	// to delete 
+
+
+GridClientPrototypeApp:
+
+If compilation error for JuridictionId & DomainCategoryId then comment line 12 & 13 (Where it sets 2 variables) in 
+GridClientPrototypeApp -> src -> app -> service -> dummy-table.service.ts 
+
+Then login to taxseries & Click on Search button & Setup tab to set that 2 variables (JuridictionId & DomainCategoryId)
+
+
+Type Ctrl + R and enter "%userprofile%" then give onecoremsvsmon folder full aaccess
+
+
+
+
+
+To run GridComponent with TTIStandDemo DB
+
+$/TTI/0 Development/TTI/Db/Build _1976/System/b1976-HPS-01-Create_Table_DummyTable.sql
+$/TTI/0 Development/TTI/Db/Build _1976/System/b1976-HPS-02-Populate_Random_Data_Into_DummyTable.sql
